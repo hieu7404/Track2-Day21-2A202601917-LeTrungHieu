@@ -172,6 +172,15 @@ jobs:
             #   sudo systemctl restart mlops-serve
             #   sleep 5
             #   curl -sf http://localhost:8000/health && echo "Health check passed." || exit 1
+            
             sudo systemctl restart mlops-serve
-            sleep 5
-            curl -sf http://localhost:8000/health && echo "Health check passed." || exit 1
+            for i in {1..10}; do
+              if curl -sf http://localhost:8000/health; then
+                echo "Health check passed."
+                exit 0
+              fi
+              echo "Dang doi server khoi dong ($i/10)..."
+              sleep 3
+            done
+            exit 1
+
