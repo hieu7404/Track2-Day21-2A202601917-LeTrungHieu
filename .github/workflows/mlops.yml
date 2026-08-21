@@ -102,16 +102,7 @@ jobs:
         env:
           BUCKET_NAME: ${{ secrets.CLOUD_BUCKET }}
         run: |
-          python - <<'EOF'
-          import os
-          from google.cloud import storage
-          bucket_name = os.environ["BUCKET_NAME"]
-          client = storage.Client()
-          bucket = client.bucket(bucket_name)
-          blob = bucket.blob("models/latest/model.pkl")
-          blob.upload_from_filename("models/model.pkl")
-          print(f"Uploaded model.pkl to gs://{bucket_name}/models/latest/model.pkl")
-          EOF
+          gsutil cp models/model.pkl gs://${{ secrets.CLOUD_BUCKET }}/models/latest/model.pkl
 
       - name: Save metrics as artifact
         uses: actions/upload-artifact@v4
