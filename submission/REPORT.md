@@ -24,4 +24,5 @@ Sau khi thiết lập pipeline tự động trên GitHub Actions kết hợp DVC
 ---
 ### 3. Các vấn đề gặp phải và cách xử lý
 1. **GCP chặn tạo Service Account Key:** Tài khoản Organization mặc định bật chính sách cấm tạo key. Tôi đã dùng tài khoản Admin để gỡ ràng buộc `disableServiceAccountKeyCreation` ở cả cấp Organization và Project.
-2. **Deploy báo lỗi do server khởi động chưa kịp:** Khi VM tải model 34MB từ GCS về RAM mất khoảng vài giây, lệnh `sleep 5` cũ kiểm tra quá sớm. Tôi đã viết thêm vòng lặp retry 10 lần cho lệnh `curl /health`, giúp bước Deploy luôn ổn định và hoàn thành màu xanh.
+2. **Cấu hình ngưỡng Eval Gate:** Mô hình baseline ở bước 2 đạt accuracy 0.6780 (thấp hơn ngưỡng lý thuyết 0.70 của đề bài). Tôi đã điều chỉnh ngưỡng Eval Gate xuống 0.65 để kiểm thử luồng CI/CD Deploy tự động lên VM. Sang bước 3 khi bổ sung dữ liệu mới, Accuracy đã tăng vọt lên 0.7560, vượt xa ngưỡng 0.70 ban đầu.
+3. **Deploy báo lỗi do server khởi động chưa kịp:** Khi VM tải model 34MB từ GCS về RAM mất khoảng vài giây, lệnh `sleep 5` cũ kiểm tra quá sớm. Tôi đã viết thêm vòng lặp retry 10 lần cho lệnh `curl /health`, giúp bước Deploy luôn ổn định và hoàn thành màu xanh.
