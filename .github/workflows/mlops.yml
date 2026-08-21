@@ -69,6 +69,7 @@ jobs:
         run: |
           echo "$GCP_KEY" | base64 -d > sa-key.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/sa-key.json" >> $GITHUB_ENV
+          gcloud auth activate-service-account --key-file=sa-key.json
 
       - name: Pull data with DVC
         # TODO 3: Pull cac file du lieu can thiet tu cloud storage bang lenh dvc pull.
