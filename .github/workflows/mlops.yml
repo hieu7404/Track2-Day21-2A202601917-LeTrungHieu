@@ -99,6 +99,8 @@ jobs:
         # TODO 5: Su dung cloud SDK de upload models/model.pkl len
         #         <bucket>/models/latest/model.pkl.
         #         Ten bucket lay tu secret CLOUD_BUCKET.
+        env:
+          BUCKET_NAME: ${{ secrets.CLOUD_BUCKET }}
         run: |
           python - <<'EOF'
           import os
